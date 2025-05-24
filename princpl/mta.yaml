@@ -1,29 +1,101 @@
----
 _schema-version: 3.3.0
 ID: princpl
 version: 0.0.1
 description: "An SAP Fiori application."
 parameters:
   enable-parallel-deployments: true
-build-parameters:
-  before-all:
-    - builder: custom
-      commands:
-        - npm ci
-        - npx cds build --production
-modules:
-  - name: princpl-srv
-    type: nodejs
-    path: gen/srv
-    parameters:
-      instances: 1
-      buildpack: nodejs_buildpack
-    build-parameters:
-      builder: npm-ci
-    provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
-        properties:
-          srv-url: ${default-url}
-    requires: []
+  deploy_mode: html5-repo
 
-resources: []
+modules:
+  - name: princpl-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: princpl-auth
+        parameters:
+          service-key:
+            name: princpl-auth-key
+      - name: princpl-html5-repo-host
+        parameters:
+          service-key:
+            name: princpl-html5-repo-host-key
+      - name: princpl-destination-service
+        parameters:
+          content-target: true
+    build-parameters:
+      no-source: true
+    parameters:
+      content:
+        instance:
+          existing_destinations_policy: ignore
+          destinations:
+            - Name: princpl_html5_repo_host
+              ServiceInstanceName: princpl-html5-srv
+              ServiceKeyName: princpl-html5-repo-host-key
+              sap.cloud.service: princpl
+            - Name: princpl_auth
+              Authentication: OAuth2UserTokenExchange
+              ServiceInstanceName: princpl-auth-srv
+              ServiceKeyName: princpl-auth-key
+              sap.cloud.service: princpl
+
+  - name: princpl-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: princpl-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - princpl.zip
+          name: princpl
+          target-path: resources/
+
+  - name: princpl
+    type: html5
+    path: .
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
+
+resources:
+  - name: princpl-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: princpl-destination-service
+      service-plan: lite
+
+  - name: princpl-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: princpl-auth-srv
+      service-plan: application
+
+  - name: princpl-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: princpl-html5-srv
+      service-plan: app-host

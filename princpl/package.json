@@ -8,12 +8,18 @@
     "sapui5"
   ],
   "main": "webapp/index.html",
-  "dependencies": {},
+  "dependencies": {
+    "@sap/xssec": "^4"
+  },
   "devDependencies": {
     "@sap-ux/ui5-middleware-fe-mockserver": "2",
     "@sap/cds-dk": "^8",
     "@sap/ux-ui5-tooling": "1",
-    "@ui5/cli": "^3.0.0"
+    "@ui5/cli": "^3.0.0",
+    "@sap/ux-specification": "UI5-1.125",
+    "@sap/ui5-builder-webide-extension": "^1.1.9",
+    "ui5-task-zipper": "^3.1.3",
+    "mbt": "^1.2.27"
   },
   "scripts": {
     "start": "fiori run --open \"test/flp.html#app-preview\"",
@@ -23,8 +29,18 @@
     "deploy": "fiori verify",
     "deploy-config": "fiori add deploy-config",
     "start-noflp": "fiori run --open \"index.html?sap-ui-xx-viewCache=false\"",
-    "start-variants-management": "fiori run --open \"preview.html#app-preview\""
+    "start-variants-management": "fiori run --open \"preview.html#app-preview\"",
+    "build:cf": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateCachebusterInfo",
+    "build:mta": "rimraf resources mta_archives && mbt build",
+    "undeploy": "cf undeploy lxleverexonpremise --delete-services --delete-service-keys --delete-service-brokers"
   },
   "sapuxLayer": "CUSTOMER_BASE",
-  "sapux": true
+  "sapux": true,
+  "ui5": {
+    "dependencies": [
+      "@sap/ui5-builder-webide-extension",
+      "ui5-task-zipper",
+      "mbt"
+    ]
+  }
 }
