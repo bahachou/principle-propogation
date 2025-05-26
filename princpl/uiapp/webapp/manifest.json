@@ -1,7 +1,7 @@
 {
-  "_version": "1.17.0",
+  "_version": "1.65.0",
   "sap.app": {
-    "id": "ns.princpl",
+    "id": "uiapp",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.17.5",
-      "toolsId": "682190f1-d224-4655-841c-f0590d267476"
+      "toolsId": "d33bea10-4981-441e-aa03-5719bafe6347"
     },
     "dataSources": {
       "annotation": {
@@ -37,9 +37,9 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "princpl-display": {
-          "semanticObject": "princpl",
-          "action": "display",
+        "dispayL-dispayL": {
+          "semanticObject": "dispayL",
+          "action": "dispayL",
           "title": "{{flpTitle}}",
           "signature": {
             "parameters": {},
@@ -68,7 +68,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.71.47",
+      "minUI5Version": "1.136.1",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -87,7 +87,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "ns.princpl.i18n.i18n"
+          "bundleName": "uiapp.i18n.i18n"
         }
       },
       "": {
@@ -162,6 +162,6 @@
   },
   "sap.cloud": {
     "public": true,
-    "service": "princpl"
+    "service": "standalone"
   }
 }

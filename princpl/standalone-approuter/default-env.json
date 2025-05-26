@@ -1,0 +1,171 @@
+{ 
+	"destinations": [
+        {
+            "name": "PRINCPL",
+            "url": "http://vmg-004.leverx.com:8001",
+			"proxyType": "OnPremise"
+        }
+    ],
+	"VCAP_SERVICES": {
+		"html5-apps-repo": [
+			{
+				"label": "html5-apps-repo",
+				"provider": null,
+				"plan": "app-runtime",
+				"name": "princpl_html_repo_runtime",
+				"tags": [
+					"html5appsrepo",
+					"html5-apps-repo-rt",
+					"html5-apps-rt",
+					"html5-apps-repo-dt",
+					"html5-apps-dt"
+				],
+				"instance_guid": "a4e946a8-33bc-41dc-a4e5-eccb8f6e17b2",
+				"instance_name": "princpl_html_repo_runtime",
+				"binding_guid": "36495831-07dc-4767-a4da-c214b0e68b29",
+				"binding_name": null,
+				"credentials": {
+					"vendor": "SAP",
+					"uri": "https://html5-apps-repo-rt.cfapps.us10.hana.ondemand.com",
+					"uaa": {
+						"tenantmode": "dedicated",
+						"sburl": "https://internal-xsuaa.authentication.us10.hana.ondemand.com",
+						"subaccountid": "9fc149df-b4b6-4efa-a54b-3896cf3bb0b9",
+						"credential-type": "binding-secret",
+						"clientid": "sb-a4e946a8-33bc-41dc-a4e5-eccb8f6e17b2!b452049|html5-apps-repo-uaa!b424",
+						"xsappname": "a4e946a8-33bc-41dc-a4e5-eccb8f6e17b2!b452049|html5-apps-repo-uaa!b424",
+						"clientsecret": "36495831-07dc-4767-a4da-c214b0e68b29$ti8fGedfBQMgwSl0P61QUTBRyHCqEd0APQTilIIf23k=",
+						"serviceInstanceId": "a4e946a8-33bc-41dc-a4e5-eccb8f6e17b2",
+						"url": "https://princpl-9laylcse.authentication.us10.hana.ondemand.com",
+						"uaadomain": "authentication.us10.hana.ondemand.com",
+						"verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApic9H1e4jBBCqSW79Edd\nwmv/SwIVCDn3ammxtnuCkuKoHFVrXBpfGQmonzkY2D/+3TeDo1pnIROmpub16nnL\nUvRw0djmhfbSRdJ+tvDcF1LVR73AOgetN1Yov4CxtSC5TIoGfv8Z5esLG2cMS+0G\nZWCMoMby+XVGoK61QevQLuitz1YTPRl3nbD2dNJ0IYXKOkfrEX0DQVTuFkmVb1sa\n9vOgxMsHMimt5YLbs7QAmDekyeyBNe2ceyMw/lZTDXgTshtOM1oOcVoauIP7yBGH\nKEADnwg5mptHq9n2YO2CGzn2fVZXqz5T2wQqoA9WDdKsZXfFsL61/k1B3TQYbBfG\nQwIDAQAB\n-----END PUBLIC KEY-----",
+						"apiurl": "https://api.authentication.us10.hana.ondemand.com",
+						"identityzone": "princpl-9laylcse",
+						"identityzoneid": "9fc149df-b4b6-4efa-a54b-3896cf3bb0b9",
+						"tenantid": "9fc149df-b4b6-4efa-a54b-3896cf3bb0b9",
+						"zoneid": "9fc149df-b4b6-4efa-a54b-3896cf3bb0b9"
+					},
+					"grant_type": "client_credentials",
+					"sap.cloud.service": "html5-apps-repo-rt",
+					"saasregistryenabled": true
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
+        "connectivity": [
+			{
+				"label": "connectivity",
+				"provider": null,
+				"plan": "lite",
+				"name": "princpl-connectivity-service",
+				"tags": [
+					"connectivity",
+					"conn",
+					"connsvc"
+				],
+				"instance_guid": "610358ed-fbe5-4e91-b666-e488ede2228f",
+				"instance_name": "princpl-connectivity-service",
+				"binding_guid": "93d98360-6b87-4829-8439-01868d8345c5",
+				"binding_name": null,
+				"credentials": {
+					"tenantmode": "dedicated",
+					"token-type": [
+						"xsuaa"
+					],
+					"clientid": "sb-clone610358edfbe54e91b666e488ede2228f!b452049|connectivity!b23892",
+					"token_service_domain": "authentication.us10.hana.ondemand.com",
+					"credential-type": "binding-secret",
+					"token_service_url": "https://princpl-9laylcse.authentication.us10.hana.ondemand.com",
+					"xsappname": "clone610358edfbe54e91b666e488ede2228f!b452049|connectivity!b23892",
+					"onpremise_proxy_ldap_port": "20001",
+					"onpremise_socks5_proxy_port": "20004",
+					"clientsecret": "93d98360-6b87-4829-8439-01868d8345c5$0ykA6_qZP6lgHrzVESG2OXy9e7KcavTHz77ZF--Wmgc=",
+					"onpremise_proxy_http_port": "20003",
+					"url": "https://princpl-9laylcse.authentication.us10.hana.ondemand.com",
+					"onpremise_proxy_host": "connectivityproxy.internal.cf.us10-001.hana.ondemand.com",
+					"uaadomain": "authentication.us10.hana.ondemand.com",
+					"onpremise_proxy_port": "20003",
+					"verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApic9H1e4jBBCqSW79Edd\nwmv/SwIVCDn3ammxtnuCkuKoHFVrXBpfGQmonzkY2D/+3TeDo1pnIROmpub16nnL\nUvRw0djmhfbSRdJ+tvDcF1LVR73AOgetN1Yov4CxtSC5TIoGfv8Z5esLG2cMS+0G\nZWCMoMby+XVGoK61QevQLuitz1YTPRl3nbD2dNJ0IYXKOkfrEX0DQVTuFkmVb1sa\n9vOgxMsHMimt5YLbs7QAmDekyeyBNe2ceyMw/lZTDXgTshtOM1oOcVoauIP7yBGH\nKEADnwg5mptHq9n2YO2CGzn2fVZXqz5T2wQqoA9WDdKsZXfFsL61/k1B3TQYbBfG\nQwIDAQAB\n-----END PUBLIC KEY-----",
+					"identityzone": "princpl-9laylcse",
+					"tenantid": "9fc149df-b4b6-4efa-a54b-3896cf3bb0b9",
+					"onpremise_proxy_rfc_port": "20001",
+					"region_configuration_id": "cf-us10-001"
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
+		"xsuaa": [
+			{
+				"label": "xsuaa",
+				"provider": null,
+				"plan": "application",
+				"name": "princpl-xsuaa-service",
+				"tags": [
+					"xsuaa"
+				],
+				"instance_guid": "d7927752-5eb6-488a-9304-c04639358202",
+				"instance_name": "princpl-xsuaa-service",
+				"binding_guid": "7069c029-5615-4a09-9caa-8b982976cd10",
+				"binding_name": null,
+				"credentials": {
+					"tenantmode": "shared",
+					"sburl": "https://internal-xsuaa.authentication.us10.hana.ondemand.com",
+					"subaccountid": "9fc149df-b4b6-4efa-a54b-3896cf3bb0b9",
+					"credential-type": "binding-secret",
+					"clientid": "sb-princpl!t452049",
+					"xsappname": "princpl!t452049",
+					"clientsecret": "7069c029-5615-4a09-9caa-8b982976cd10$hsrrJCZKZoKGPVNeOJzaSdNgdA_xyiWz9SYAce2v9BM=",
+					"serviceInstanceId": "d7927752-5eb6-488a-9304-c04639358202",
+					"url": "https://princpl-9laylcse.authentication.us10.hana.ondemand.com",
+					"uaadomain": "authentication.us10.hana.ondemand.com",
+					"verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApic9H1e4jBBCqSW79Edd\nwmv/SwIVCDn3ammxtnuCkuKoHFVrXBpfGQmonzkY2D/+3TeDo1pnIROmpub16nnL\nUvRw0djmhfbSRdJ+tvDcF1LVR73AOgetN1Yov4CxtSC5TIoGfv8Z5esLG2cMS+0G\nZWCMoMby+XVGoK61QevQLuitz1YTPRl3nbD2dNJ0IYXKOkfrEX0DQVTuFkmVb1sa\n9vOgxMsHMimt5YLbs7QAmDekyeyBNe2ceyMw/lZTDXgTshtOM1oOcVoauIP7yBGH\nKEADnwg5mptHq9n2YO2CGzn2fVZXqz5T2wQqoA9WDdKsZXfFsL61/k1B3TQYbBfG\nQwIDAQAB\n-----END PUBLIC KEY-----",
+					"apiurl": "https://api.authentication.us10.hana.ondemand.com",
+					"identityzone": "princpl-9laylcse",
+					"identityzoneid": "9fc149df-b4b6-4efa-a54b-3896cf3bb0b9",
+					"tenantid": "9fc149df-b4b6-4efa-a54b-3896cf3bb0b9",
+					"zoneid": "9fc149df-b4b6-4efa-a54b-3896cf3bb0b9"
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		],
+		"destination": [
+			{
+				"label": "destination",
+				"provider": null,
+				"plan": "lite",
+				"name": "princpl-destination-service",
+				"tags": [
+					"destination",
+					"conn",
+					"connsvc"
+				],
+				"instance_guid": "b10f1d32-1065-4c07-b5ad-e9863782ab5d",
+				"instance_name": "princpl-destination-service",
+				"binding_guid": "c1925eaa-312e-4d20-b250-a9aa66615258",
+				"binding_name": null,
+				"credentials": {
+					"tenantmode": "dedicated",
+					"token-type": [
+						"xsuaa"
+					],
+					"clientid": "sb-cloneb10f1d3210654c07b5ade9863782ab5d!b452049|destination-xsappname!b62",
+					"credential-type": "binding-secret",
+					"xsappname": "cloneb10f1d3210654c07b5ade9863782ab5d!b452049|destination-xsappname!b62",
+					"clientsecret": "c1925eaa-312e-4d20-b250-a9aa66615258$4CAL23BEo2wQiFbopN6Ez7kn8P5yzcwtJtdmdE6p3uI=",
+					"uri": "https://destination-configuration.cfapps.us10.hana.ondemand.com",
+					"url": "https://princpl-9laylcse.authentication.us10.hana.ondemand.com",
+					"uaadomain": "authentication.us10.hana.ondemand.com",
+					"instanceid": "b10f1d32-1065-4c07-b5ad-e9863782ab5d",
+					"verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApic9H1e4jBBCqSW79Edd\nwmv/SwIVCDn3ammxtnuCkuKoHFVrXBpfGQmonzkY2D/+3TeDo1pnIROmpub16nnL\nUvRw0djmhfbSRdJ+tvDcF1LVR73AOgetN1Yov4CxtSC5TIoGfv8Z5esLG2cMS+0G\nZWCMoMby+XVGoK61QevQLuitz1YTPRl3nbD2dNJ0IYXKOkfrEX0DQVTuFkmVb1sa\n9vOgxMsHMimt5YLbs7QAmDekyeyBNe2ceyMw/lZTDXgTshtOM1oOcVoauIP7yBGH\nKEADnwg5mptHq9n2YO2CGzn2fVZXqz5T2wQqoA9WDdKsZXfFsL61/k1B3TQYbBfG\nQwIDAQAB\n-----END PUBLIC KEY-----",
+					"identityzone": "princpl-9laylcse",
+					"tenantid": "9fc149df-b4b6-4efa-a54b-3896cf3bb0b9"
+				},
+				"syslog_drain_url": null,
+				"volume_mounts": []
+			}
+		]
+	}
+}

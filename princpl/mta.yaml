@@ -1,76 +1,110 @@
-_schema-version: 3.3.0
-ID: princpl
+_schema-version: "3.2"
+ID: standalone
 version: 0.0.1
-description: "An SAP Fiori application."
 parameters:
-  enable-parallel-deployments: true
-  deploy_mode: html5-repo
-
+  deploy_mode: standalone-approuter
+  appname: standalone-approuter
+  subdomain: 0ce0c515trial
 modules:
-  - name: princpl-destination-content
-    type: com.sap.application.content
+  - name: standalone-approuter
+    type: approuter.nodejs
+    path: standalone-approuter
     requires:
-      - name: princpl-auth
-        parameters:
-          service-key:
-            name: princpl-auth-key
-      - name: princpl-html5-repo-host
-        parameters:
-          service-key:
-            name: princpl-html5-repo-host-key
-      - name: princpl-destination-service
-        parameters:
-          content-target: true
-    build-parameters:
-      no-source: true
+      - name: standalone_html_repo_runtime
+      - name: uaa_standalone
+      - name: standalone_connectivity
+      - name: standalone-destination-service
+      - name: standalone_saas-registry
+        group: destinations
+        properties:
+          forwardAuthToken: false
+          name: ui5
+          url: https://ui5.sap.com
+    properties:
+      TENANT_HOST_PATTERN: "^(.*)-${appname}.${default-domain}"
     parameters:
-      content:
-        instance:
-          existing_destinations_policy: ignore
-          destinations:
-            - Name: princpl_html5_repo_host
-              ServiceInstanceName: princpl-html5-srv
-              ServiceKeyName: princpl-html5-repo-host-key
-              sap.cloud.service: princpl
-            - Name: princpl_auth
-              Authentication: OAuth2UserTokenExchange
-              ServiceInstanceName: princpl-auth-srv
-              ServiceKeyName: princpl-auth-key
-              sap.cloud.service: princpl
+      disk-quota: 256M
+      memory: 256M
+      routes:
+        - route: https://${subdomain}-${appname}.${default-domain}
+        - route: https://princpl-9laylcse-${appname}.${default-domain}
+        - route: https://cons-y43ibyop-${appname}.${default-domain}
 
-  - name: princpl-app-content
+  - name: standalone_ui_deployer
     type: com.sap.application.content
     path: .
     requires:
-      - name: princpl-html5-repo-host
+      - name: standalone_html_repo_host
         parameters:
           content-target: true
     build-parameters:
       build-result: resources
       requires:
         - artifacts:
-            - princpl.zip
-          name: princpl
+            - uiapp.zip
+          name: uiapp
           target-path: resources/
 
-  - name: princpl
+  - name: uiapp
     type: html5
-    path: .
+    path: uiapp
     build-parameters:
       build-result: dist
       builder: custom
       commands:
         - npm install
         - npm run build:cf
-      supported-platforms:
-        []
+      supported-platforms: []
 
 resources:
-  - name: princpl-destination-service
+  - name: standalone_html_repo_runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
+
+  - name: uaa_standalone
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: standalone-xsuaa-service
+      service-plan: application
+
+  - name: standalone_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+
+  - name: standalone_connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-name: standalone-connectivity-service
+      service-plan: lite
+
+  - name: standalone_saas-registry
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: saas-registry
+      service-name: ${appname}-saas-registry
+      service-plan: application
+      config:
+        xsappname: standalone
+        appName: standalone-approuter
+        displayName: Users
+        description: Users
+        category: Custom Apps
+        appUrls:
+          onSubscription: https://${subdomain}-${appname}.${default-domain}/callback/v1.0/tenants/{tenantId}
+          getDependencies: https://${subdomain}-${appname}.${default-domain}/callback/v1.0/dependencies
+
+  - name: standalone-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
       config:
-        HTML5Runtime_enabled: true
+        HTML5Runtime_enabled: false
         init_data:
           instance:
             destinations:
@@ -82,20 +116,5 @@ resources:
             existing_destinations_policy: update
         version: 1.0.0
       service: destination
-      service-name: princpl-destination-service
+      service-name: standalone-destination-service
       service-plan: lite
-
-  - name: princpl-auth
-    type: org.cloudfoundry.managed-service
-    parameters:
-      path: ./xs-security.json
-      service: xsuaa
-      service-name: princpl-auth-srv
-      service-plan: application
-
-  - name: princpl-html5-repo-host
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: html5-apps-repo
-      service-name: princpl-html5-srv
-      service-plan: app-host

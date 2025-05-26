@@ -1,24 +1,24 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Thu May 22 2025 20:30:18 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Sun May 25 2025 20:39:23 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>SAP Fiori Application Generator|
 |**App Generator Version**<br>1.17.5|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>List Report Page V2|
 |**Service Type**<br>SAP System (ABAP On Premise)|
 |**Service URL**<br>http://vmg-004.leverx.com:8001/sap/opu/odata/lvx/SRV_FIORI_DP_SRV|
-|**Module Name**<br>princpl|
-|**Application Title**<br>App Title|
-|**Namespace**<br>ns|
-|**UI5 Theme**<br>sap_fiori_3|
-|**UI5 Version**<br>1.71.47|
+|**Module Name**<br>uiapp|
+|**Application Title**<br>Users|
+|**Namespace**<br>|
+|**UI5 Theme**<br>sap_fiori_3_dark|
+|**UI5 Version**<br>1.136.1|
 |**Enable Code Assist Libraries**<br>False|
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
-|**Main Entity**<br>CharacteristicsListSet|
+|**Main Entity**<br>MsrElmUserNameSet|
 
-## princpl
+## uiapp
 
 An SAP Fiori application.
 

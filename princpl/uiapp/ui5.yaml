@@ -2,7 +2,7 @@
 
 specVersion: "3.1"
 metadata:
-  name: ns.princpl
+  name: uiapp
 type: application
 server:
   customMiddleware:
@@ -29,4 +29,4 @@ server:
       afterMiddleware: fiori-tools-appreload
       configuration:
         flp:
-          theme: sap_fiori_3
+          theme: sap_fiori_3_dark

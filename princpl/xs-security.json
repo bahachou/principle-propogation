@@ -1,8 +1,35 @@
 {
-  "xsappname": "princpl",
-  "tenant-mode": "dedicated",
-  "scopes": [],
-  "attributes": [],
-  "role-templates": [],
-  "authorities-inheritance": false
+  "xsappname": "standalone",
+  "tenant-mode": "shared",
+  "description": "Security profile of called application",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.Callback",
+      "description": "With this scope set, the callbacks for tenant onboarding, offboarding and getDependencies can be called.",
+      "grant-as-authority-to-apps": [
+        "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+      ]
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": [
+        "uaa.user"
+      ]
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+        "https://0ce0c515trial-standalone-approuter.cfapps.us10-001.hana.ondemand.com/login/callback",
+        "https://princpl-9laylcse-standalone-approuter.cfapps.us10-001.hana.ondemand.com/login/callback",
+        "https://cons-y43ibyop-standalone-approuter.cfapps.us10-001.hana.ondemand.com/login/callback",
+        "https://port5000-workspaces-ws-d92v4.us10.trial.applicationstudio.cloud.sap/login/callback"
+    ]
+}
 }
