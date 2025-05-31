@@ -10,11 +10,11 @@ modules:
     type: approuter.nodejs
     path: standalone-approuter
     requires:
-      - name: standalone_html_repo_runtime
-      - name: uaa_standalone
-      - name: standalone_connectivity
+      - name: standalone-html-repo-runtime
+      - name: uaa-standalone
+      - name: standalone-connectivity
       - name: standalone-destination-service
-      - name: standalone_saas-registry
+      - name: standalone-saas-registry
         group: destinations
         properties:
           forwardAuthToken: false
@@ -30,11 +30,42 @@ modules:
         - route: https://princpl-9laylcse-${appname}.${default-domain}
         - route: https://cons-y43ibyop-${appname}.${default-domain}
 
+  - name: standalone-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: uaa-standalone
+        parameters:
+          service-key:
+            name: uaa-standalone-key
+      - name: standalone-html-repo-host
+        parameters:
+          service-key:
+            name: standalone_html_repo_host-key
+      - name: standalone-destination-service
+        parameters:
+          content-target: true
+    build-parameters:
+      no-source: true
+    parameters:
+      content:
+        instance:
+          existing_destinations_policy: ignore
+          destinations:
+            - Name: standalone_html_repo_host
+              ServiceInstanceName: standalone-html5-srv
+              ServiceKeyName: standalone_html_repo_host-key
+              sap.cloud.service: standalone
+            - Name: uaa-standalone
+              Authentication: OAuth2UserTokenExchange
+              ServiceInstanceName: standalone-xsuaa-service
+              ServiceKeyName: uaa-standalone-key
+              sap.cloud.service: standalone
+
   - name: standalone_ui_deployer
     type: com.sap.application.content
     path: .
     requires:
-      - name: standalone_html_repo_host
+      - name: standalone-html-repo-host
         parameters:
           content-target: true
     build-parameters:
@@ -57,13 +88,13 @@ modules:
       supported-platforms: []
 
 resources:
-  - name: standalone_html_repo_runtime
+  - name: standalone-html-repo-runtime
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
       service-plan: app-runtime
 
-  - name: uaa_standalone
+  - name: uaa-standalone
     type: org.cloudfoundry.managed-service
     parameters:
       path: ./xs-security.json
@@ -71,20 +102,21 @@ resources:
       service-name: standalone-xsuaa-service
       service-plan: application
 
-  - name: standalone_html_repo_host
+  - name: standalone-html-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
       service-plan: app-host
+      service-name: standalone-html5-srv
 
-  - name: standalone_connectivity
+  - name: standalone-connectivity
     type: org.cloudfoundry.managed-service
     parameters:
       service: connectivity
       service-name: standalone-connectivity-service
       service-plan: lite
 
-  - name: standalone_saas-registry
+  - name: standalone-saas-registry
     type: org.cloudfoundry.managed-service
     parameters:
       service: saas-registry
@@ -104,7 +136,7 @@ resources:
     type: org.cloudfoundry.managed-service
     parameters:
       config:
-        HTML5Runtime_enabled: false
+        HTML5Runtime_enabled: true
         init_data:
           instance:
             destinations:

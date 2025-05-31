@@ -24,7 +24,7 @@
         }
       },
       "mainService": {
-        "uri": "/sap/opu/odata/lvx/SRV_FIORI_DP_SRV/",
+        "uri": "./sap/opu/odata/lvx/SRV_FIORI_DP_SRV/",
         "type": "OData",
         "settings": {
           "annotations": [
@@ -37,9 +37,9 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "dispayL-dispayL": {
-          "semanticObject": "dispayL",
-          "action": "dispayL",
+        "Users-dispay": {
+          "semanticObject": "Users",
+          "action": "dispay",
           "title": "{{flpTitle}}",
           "signature": {
             "parameters": {},
